@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-confFile=./zabbix_agentd.conf
+confFile=/sybase/scripts/zabbix/zabbix_agentd.conf
 
 create_directories(){
    mkdir -p /sybase/src
@@ -42,18 +42,18 @@ extract_zabbix(){
 }
 
 configure_host_name(){
-     [ -z "$zabbix_server" ] && zabbix_server=10.142.0.0
+     [ -z "$zabbix_server" ] && zabbix_server=10.142.0.23
      [ -z "$listen_port" ] && listen_port=10050
      [ -z "$hostname" ] && hostname=`cat /proc/sys/kernel/hostname` 
       # echo "$hostname" 
 
-   if [ -s $confFile ]; 
+   if [ -f "$confFile" ]; 
    then
-         sed -ie '/Hostname *=/ s|=.*$|='$(echo "$hostname")'|' $confFile
-         sed -ie '/PidFile *=/ s|=.*$|='$(echo "$PidFile")'|' $confFile
-         sed -ie '/LogFile *=/ s|=.*$|='$(echo "$LogFile")'|' $confFile
-         sed -ie '/ServerActive *=/ s|=.*$|='$(echo "$zabbix_server")'|' $confFile
-         sed -ie '/Server *=/ s|=.*$|='$(echo "$zabbix_server")'|' $confFile
+         sed -i '/Hostname *=/ s|=.*$|='$(echo "$hostname")'|' $confFile
+         sed -i '/PidFile *=/ s|=.*$|='$(echo "$PidFile")'|' $confFile
+         sed -i '/LogFile *=/ s|=.*$|='$(echo "$LogFile")'|' $confFile
+         sed -i '/ServerActive *=/ s|=.*$|='$(echo "$zabbix_server")'|' $confFile
+         sed -i '/Server *=/ s|=.*$|='$(echo "$zabbix_server")'|' $confFile
    else
          echo "There is no zabbix_agentd.conf file"
          exit 1
