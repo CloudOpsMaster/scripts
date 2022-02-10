@@ -6,6 +6,7 @@ create_directories(){
    mkdir -p /sybase/src
    mkdir -p /sybase/zabbix/logs
    mkdir -p /sybase/zabbix/pid
+   mkdir -p /sybase/zabbix/etc
 }
 
 check_settings(){
@@ -33,13 +34,36 @@ download_zabbix(){
 extract_zabbix(){
    if [ -f $zabbix_home/$version.tar.gz ]; 
    then
-       cd $zabbix_home &&  tar -zxvf $version.tar.gz  -C $zabbix
+       cd $zabbix_home &&  tar -zxvf $version.tar.gz  # -C $zabbix
    else
        echo "There have no $version.tar.gz in $zabbix_home"
        exit 1
-   fi
-         
+   fi    
 }
+
+
+configure_zabbix_agent(){
+   if [ -d "$zabbix" ]; 
+   then
+      cd $zabbix_home/$version 
+      ./configure --prefix=$zabbix --enable-agent
+   else
+       echo "There have no /sybase/zabbix dir"
+       exit 1
+   fi
+}
+
+make_install(){
+   if [ -d "$zabbix" ]; 
+   then
+      cd $zabbix_home/$version 
+      make install
+   else
+       echo "There have no have /sybase/zabbix dir"
+       exit 1
+   fi
+}
+
 
 configure_host_name(){
      [ -z "$zabbix_server" ] && zabbix_server=10.142.0.23
@@ -78,6 +102,8 @@ copy_zabbix_conf(){
  remove_old_zabbix
  download_zabbix
  extract_zabbix
+ configure_zabbix_agent
+ make_install
  configure_host_name
  copy_zabbix_conf
 
