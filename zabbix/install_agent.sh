@@ -12,7 +12,7 @@ check_settings(){
   if [ -s ./settings.cfg ]; then
      . ./settings.cfg
   else
-   echo "There is not setting.cfg"
+   echo "There is no setting.cfg"
    exit 1
   fi
 }
@@ -45,12 +45,19 @@ configure_host_name(){
      [ -z "$zabbix_server" ] && zabbix_server=10.142.0.0
      [ -z "$listen_port" ] && listen_port=10050
      [ -z "$hostname" ] && hostname=`cat /proc/sys/kernel/hostname` 
-      # echo "$hostname"
-      sed -ie '/Hostname *=/ s|=.*$|='$(echo "$hostname")'|' confFile
-      sed -ie '/PidFile *=/ s|=.*$|='$(echo "$PidFile")'|' confFile
-      sed -ie '/LogFile *=/ s|=.*$|='$(echo "$LogFile")'|' confFile
-      sed -ie '/ServerActive *=/ s|=.*$|='$(echo "$zabbix_server")'|' confFile
-      sed -ie '/Server *=/ s|=.*$|='$(echo "$zabbix_server")'|' confFile
+      # echo "$hostname" 
+
+   if [ -s $confFile ]; 
+   then
+         sed -ie '/Hostname *=/ s|=.*$|='$(echo "$hostname")'|' $confFile
+         sed -ie '/PidFile *=/ s|=.*$|='$(echo "$PidFile")'|' $confFile
+         sed -ie '/LogFile *=/ s|=.*$|='$(echo "$LogFile")'|' $confFile
+         sed -ie '/ServerActive *=/ s|=.*$|='$(echo "$zabbix_server")'|' $confFile
+         sed -ie '/Server *=/ s|=.*$|='$(echo "$zabbix_server")'|' $confFile
+   else
+         echo "There is no zabbix_agentd.conf file"
+         exit 1
+   fi
 }
 
 
@@ -74,9 +81,6 @@ copy_zabbix_conf(){
  configure_host_name
  copy_zabbix_conf
 
-
-
-echo "Success!"
 
 # apt install libpcre3-dev -y 
 # apt install gcc -y 
