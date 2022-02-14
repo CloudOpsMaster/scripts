@@ -66,7 +66,7 @@ make_install(){
 
 
 configure_host_name(){
-     [ -z "$zabbix_server" ] && zabbix_server=10.142.0.23
+     [ -z "$zabbix_server" ] && zabbix_server=10.142.0.2
      [ -z "$listen_port" ] && listen_port=10050
      [ -z "$hostname" ] && hostname=`cat /proc/sys/kernel/hostname` 
       # echo "$hostname" 
