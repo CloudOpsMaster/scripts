@@ -1,15 +1,15 @@
 #!/usr/bim/env bash
 
 phpVersion=$(php --version | head -n 1 | cut -d " " -f 2 | cut -c  1-3 )
+. ./settings.cfg
 
 check_setting(){
-    if [ -s ./settings.cfg ];
-    then
-        . ./settings.cfg
+    if [ -s ./settings.cfg ]; then
+       . ./settings.cfg
     else
         echo "There is no setting.cfg"
         exit 1
-    fi     
+    fi   
 }
 
 create_directories(){
