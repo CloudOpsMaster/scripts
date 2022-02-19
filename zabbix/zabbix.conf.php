@@ -5,7 +5,7 @@
  $DB['PORT']				= '0';
  $DB['DATABASE']			= 'zabbix';
  $DB['USER']				= 'zabbix';
- $DB['PASSWORD']			= 'zabbix';
+ $DB['PASSWORD']			= 'password';
  
  // Schema name. Used for PostgreSQL.
  $DB['SCHEMA']			= '';
@@ -16,11 +16,11 @@
  $DB['CERT_FILE']		= '';
  $DB['CA_FILE']			= '';
  $DB['VERIFY_HOST']		= false;
- $DB['CIPHER_LIST']		= '
+ $DB['CIPHER_LIST']		= '';
  $DB['DOUBLE_IEEE754']	= true;
  
  $ZBX_SERVER	= 'localhost';
  $ZBX_SERVER_PORT	= '10051';
  $ZBX_SERVER_NAME	= '';
  
- $IMAGE_FORMAT_DEFAULT	= IMAGE_FORMAT_PN
+ $IMAGE_FORMAT_DEFAULT	= IMAGE_FORMAT_PNG;
