@@ -2,15 +2,10 @@
 
 
 
-token=""
-userId=" "
+token="$1"
+userId="$2"
+subj="$3"
+message="$4"
 
-uptime="$(uptime | cut -c 1-27)"
-
-message="Ubuntu 20.04 \nUptime  $uptime"
-
-
-
-
-curl --header 'Content-Type: application/json' --request 'POST' --data '{"chat_id":'$userId',"text":"'"$message"'"}' "https://api.telegram.org/bot"$token"/sendMessage"
+curl --header 'Content-Type: application/json' --request 'POST' --data '{"chat_id":'$userId',"text":"'"$subj"'\n'"$message"'"}' "https://api.telegram.org/bot"$token"/sendMessage"
 
