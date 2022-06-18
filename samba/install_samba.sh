@@ -36,8 +36,8 @@ remove_old_smb_conf(){
 remove_old_smb_conf
 
 copy_smb_conf(){
-    cp $samba_conf /etc/samba/smb.conf
-    if [ -f /etc/samba/smb.conf ];
+    cp $src/$samba_conf /etc/samba/smb.conf
+    if [ ! -f /etc/samba/smb.conf ];
     then 
         echo "File smb.conf not exist in /etc/samba/"
         exit 1
