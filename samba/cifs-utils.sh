@@ -28,6 +28,7 @@ install_cifs_utils(){
 install_cifs_utils
 
 mount(){
-    mount -t cifs //$ip$src $src
+    mount -t cifs //$ip$src/$shara $src/$shara
 }
 mount
+

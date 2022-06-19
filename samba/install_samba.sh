@@ -51,6 +51,7 @@ permision(){
 permision
 
 owner(){
-    chown -R nobody:nogroup $src/$shara
+    # chown -R nobody:nogroup $src/$shara
+    echo "root owner"
 }
 owner
